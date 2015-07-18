@@ -1,0 +1,74 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		8FAF4BA71B5A20BC005A11C0 /* Minimum_Path_Sum.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Minimum_Path_Sum.cpp; path = ../Minimum_Path_Sum.cpp; sourceTree = "<group>"; };
+		8FAF4BA81B5A20BC005A11C0 /* Minimum_Path_Sum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Minimum_Path_Sum.h; path = ../Minimum_Path_Sum.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		8FAF4BA01B5A205D005A11C0 = {
+			isa = PBXGroup;
+			children = (
+				8FAF4BA71B5A20BC005A11C0 /* Minimum_Path_Sum.cpp */,
+				8FAF4BA81B5A20BC005A11C0 /* Minimum_Path_Sum.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		8FAF4BA11B5A205D005A11C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
+			buildConfigurationList = 8FAF4BA41B5A205D005A11C0 /* Build configuration list for PBXProject "Leetcode" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8FAF4BA01B5A205D005A11C0;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		8FAF4BA51B5A205D005A11C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		8FAF4BA61B5A205D005A11C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8FAF4BA41B5A205D005A11C0 /* Build configuration list for PBXProject "Leetcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FAF4BA51B5A205D005A11C0 /* Debug */,
+				8FAF4BA61B5A205D005A11C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8FAF4BA11B5A205D005A11C0 /* Project object */;
+}
