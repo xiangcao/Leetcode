@@ -1,0 +1,56 @@
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        # refer https://leetcode.com/discuss/36966/solution-explained for different solution and complexity analysis
+        heap = []
+        for e in nums:
+            heapq.heappush(heap, e)
+            if len(heap) > k:
+                heapq.heappop(heap)
+        return heap[0]
+    
+    def findKthLargest(self, nums, k):
+        """
+        O(N) best case / O(N^2) worst case running time + O(1) memory
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        #quick select algorithm refer to https://leetcode.com/discuss/36966/solution-explained
+        def partition(nums, low, high):
+            # use nums[low] as a pivot
+            i = low+1
+            j = high
+            
+            while True:
+                while i < high and nums[i] > nums[low]: 
+                    i += 1
+                while j > low and nums[j] <= nums[low]:
+                    j -= 1
+                if i >= j:
+                    break
+                nums[i], nums[j] = nums[j], nums[i]
+            nums[j], nums[low] = nums[low], nums[j]
+            print low, high
+            # everything left to j is larger than nums[j]
+            return j
+        low, high = 0, len(nums)-1
+        while low < high:
+            pivot = partition(nums, low, high)
+            print pivot
+            if pivot == k-1:
+                break
+            elif pivot > k-1:
+                high = pivot-1
+            else:
+                low = pivot + 1
+            
+        return nums[k-1]
+            
+        
+        
+            
