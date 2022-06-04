@@ -1,0 +1,69 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+    def serialize(self, root: TreeNode) -> str:
+        """Encodes a tree to a single string.
+        """
+        if not root:
+            return ""
+        result = []
+        stack=[root]
+        while stack:
+            node = stack.pop()
+            result.append(str(node.val))
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return "#".join(result)
+
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        if not data:
+            return None
+        elements = collections.deque([int(i) for i in data.split("#")])
+        def helper(low, high):
+            if not elements or elements[0] < low or elements[0] > high:
+                return None
+
+            newnode = TreeNode(int(elements.popleft()))
+
+            newnode.left = helper(low, newnode.val)
+            newnode.right = helper(newnode.val, high)
+            return newnode
+        return helper(float("-inf"), float("inf"))
+
+    def deserialize2(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        if not data:
+            return None
+        elements = data.split("#")
+        def helper(left, right):
+            if left > right:
+                return None
+            
+            newnode = TreeNode(int(elements[left]))
+            if left == right:
+                return newnode
+
+            rightchild = left + 1
+            while rightchild <= right:
+                if int(elements[rightchild]) < int(newnode.val):
+                    rightchild += 1
+                else:
+                    break
+            newnode.left = helper(left+1, rightchild-1)
+            newnode.right = helper(rightchild, right)
+            return newnode
+        return helper(0, len(elements)-1)
+  
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))

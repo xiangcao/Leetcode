@@ -1,0 +1,94 @@
+"""
+You are driving a vehicle that has capacity empty seats initially available for passengers.  The vehicle only drives east (ie. it cannot turn around and drive west.)
+
+Given a list of trips, trip[i] = [num_passengers, start_location, end_location] contains information about the i-th trip: the number of passengers that must be picked up, and the locations to pick them up and drop them off.  The locations are given as the number of kilometers due east from your vehicle's initial location.
+
+Return true if and only if it is possible to pick up and drop off all passengers for all the given trips. 
+
+Constraints:
+
+trips.length <= 1000
+trips[i].length == 3
+1 <= trips[i][0] <= 100
+0 <= trips[i][1] < trips[i][2] <= 1000
+1 <= capacity <= 100000
+""" 
+# similar to meeting room 2
+class Solution(object):
+    def carPooling1(self, trips, capacity):
+        """
+        :type trips: List[List[int]]
+        :type capacity: int
+        :rtype: bool
+        """
+        heap = []
+        i = 0
+        trips.sort(key=lambda x: x[1])
+        while i < len(trips):
+            t = trips[i]
+            count, start, end = t[0], t[1], t[2]
+            while heap and heap[0][0] <= start:
+                capacity += heap[0][1]
+                heapq.heappop(heap)                    
+
+            heapq.heappush(heap, (end, count))
+            capacity -= count
+            i += 1 
+            
+            if capacity < 0: return False
+
+        return True
+
+    #[[2,1,5], [3,3,7]], capacity: 4, Output: False
+    #[[2,1,5], [3,3,7]], capacity: 5, output: True
+    #[[2,1,5], [3, 5,7]], capacity: 3 output: True
+    #[[3,2,7], [3,7,9], [8, 3,9]], capacity:11, output: True        
+    # Sort all timestamp; Line sweeping
+    def carPooling2(self, trips, capacity):
+        timestamp = []
+        for trip in trips:
+            timestamp.append([trip[1], trip[0]])
+            timestamp.append([trip[2], -trip[0]])
+
+        timestamp.sort()
+
+        used_capacity = 0
+        for time, passenger_change in timestamp:
+            used_capacity += passenger_change
+            if used_capacity > capacity:
+                return False
+
+        return True
+
+    # bucket Sort;
+    # count how many people are picked up and dropped off at each possible location (think about a bus station)
+    def carPooling(self, trips, capacity):
+        maxT = max(t[2] for t in trips)
+        
+        timestamp = [0] * (maxT + 1)
+
+        for trip in trips:
+            timestamp[trip[1]] += trip[0]
+            timestamp[trip[2]] -= trip[0]
+
+        used_capacity = 0
+        for passenger_change in timestamp:
+            used_capacity += passenger_change
+            if used_capacity > capacity:
+                return False
+
+        return True
+    
+    # bucket sort using Counter()
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        record = collections.Counter()
+
+        for count, startTime, endTime in trips:
+            record[startTime] += count
+            record[endTime] -= count
+        taken = 0
+        for i in sorted(record):
+            taken += record[i]
+            if taken > capacity:
+                return False
+        return True
